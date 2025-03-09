@@ -40,7 +40,7 @@ public class AllowedBlockedPluginsWithHostsTests {
         TestPluginFinder finder = new TestPluginFinder(testElement, testElementOwner);
         InterceptEvent<Plugin> event = new InterceptEvent<>(testHost, new StackTraceElement[] {
                 testElement
-        }, Platform.OTHER, finder);
+        }, Platform.OTHER, finder, "");
         Blocker<Plugin> modeBlocker;
         if (allowMode) {
             modeBlocker = new AllowBlocker<>(hostTargets);

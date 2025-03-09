@@ -23,6 +23,12 @@ public abstract class AbstractEventLogger<PLUGIN> implements EventLogger<PLUGIN>
     @Override
     public void logAttempt(InterceptEvent<PLUGIN> event) {
         String host = event.getHost();
+        // prevent log if the plugin is blocked
+        PLUGIN trustedPlugin = event.getTrustedPlugin();
+        if(trustedPlugin != null) {
+            // We don't want to log the attempt if the plugin is trusted
+            return;
+        }
 
         StringBuilder sb = new StringBuilder("Intercepted connection to ").append(host);
         String origHost = event.getOriginalHost();
@@ -48,6 +54,7 @@ public abstract class AbstractEventLogger<PLUGIN> implements EventLogger<PLUGIN>
             sb.append("\tat (identical stack trace omitted)\n");
         }
 
+        sb.append("\n ").append(event.getContext().toString());
         sb.setLength(sb.length() - 1);
         getLogger().info(sb.toString());
     }
@@ -77,6 +84,13 @@ public abstract class AbstractEventLogger<PLUGIN> implements EventLogger<PLUGIN>
 
     @Override
     public void logBlock(InterceptEvent<PLUGIN> event) {
+        // prevent log if the plugin is blocked
+        PLUGIN blockedPlugin = event.getBlockedPlugin();
+        if(blockedPlugin != null) {
+            // We don't want to log the block if the plugin is blocked
+            return;
+        }
+
         StringBuilder sb = new StringBuilder("Blocked connection to ");
         sb.append(event.getHost());
         String origHost = event.getOriginalHost();
@@ -84,6 +98,7 @@ public abstract class AbstractEventLogger<PLUGIN> implements EventLogger<PLUGIN>
             sb.append(" (").append(origHost).append(")");
         }
         appendPluginIfPossible(sb, event);
+        sb.append("\n ").append(event.getContext().toString());
         getLogger().info(sb.toString());
     }
 }

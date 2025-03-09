@@ -23,14 +23,16 @@ public class InterceptEvent<PLUGIN> {
     private boolean isRepeat = false; // is repeat if has original host or repeat connection to the same host
     private PLUGIN trustedPlugin;
     private PLUGIN blockedPlugin;
+    private Object context;
 
-    public InterceptEvent(String host, StackTraceElement[] stackTrace, Platform platform) {
-        this(host, stackTrace, platform, null);
+    public InterceptEvent(String host, StackTraceElement[] stackTrace, Platform platform, Object context) {
+        this(host, stackTrace, platform, null, context);
     }
 
-    public InterceptEvent(String host, StackTraceElement[] stackTrace, Platform platform, PluginFinder<PLUGIN> finder) {
+    public InterceptEvent(String host, StackTraceElement[] stackTrace, Platform platform, PluginFinder<PLUGIN> finder, Object context) {
         this.host = host;
         this.stackTrace = stackTrace;
+        this.context = context;
         this.platform = platform;
         if (platform == Platform.BUKKIT) {
             pluginFinder = new BukkitPluginFinder();
@@ -146,6 +148,10 @@ public class InterceptEvent<PLUGIN> {
 
         PLUGIN findPlugin(StackTraceElement element);
 
+    }
+
+    public Object getContext() {
+        return context;
     }
 
     private class BukkitPluginFinder implements PluginFinder<PLUGIN> {

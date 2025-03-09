@@ -28,25 +28,27 @@ public class SecurityManagerInterceptor<PLUGIN> extends SecurityManager implemen
     }
 
     @Override
-    public void checkConnect(String host, int port) {
+    public void checkConnect(String host, int port, Object context) {
         StackTraceElement[] trace = new Exception().getStackTrace();
-        InterceptEvent<PLUGIN> event = new InterceptEvent<>(host, trace, plugin.getPlatformType());
+        InterceptEvent<PLUGIN> event = new InterceptEvent<>(host, trace, plugin.getPlatformType(), context);
 
         boolean blocked = this.plugin.getDelegate().shouldBlock(event);
 
-        this.plugin.getDelegate().logAttempt(event);
+        // this.plugin.getDelegate().logAttempt(event);
 
         if (blocked) {
             this.plugin.getDelegate().logBlock(event);
             SneakyThrow.sneakyThrow(new ConnectionBlockedException("SecurityManager"));
             throw new AssertionError();
+        } else {
+            this.plugin.getDelegate().logAttempt(event);
         }
     }
 
-    @Override
+    /*@Override
     public void checkConnect(String host, int port, Object context) {
-        checkConnect(host, port);
-    }
+        checkConnect(host, port, context);
+    }*/
 
     @Override
     public void checkPermission(Permission perm) {

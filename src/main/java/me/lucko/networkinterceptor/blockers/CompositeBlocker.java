@@ -24,7 +24,7 @@ public class CompositeBlocker<PLUGIN> implements Blocker<PLUGIN> {
     @Override
     public boolean shouldBlock(InterceptEvent<PLUGIN> event) {
         if (useManualBlocker && !manual.shouldBlock(event)) {
-            return false; // allowed by manual plugin detecting blockeru
+            return false; // allowed by manual plugin detecting block
         }
         if (pluginAwareBlocker.hasTrustedPlugins(event)) {
             return false; // allow

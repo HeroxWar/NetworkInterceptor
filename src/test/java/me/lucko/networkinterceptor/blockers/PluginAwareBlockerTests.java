@@ -27,7 +27,7 @@ public class PluginAwareBlockerTests {
         TestPluginFinder finder = new TestPluginFinder(trustedPluginElement, trustedPlugin);
         InterceptEvent<Plugin> event = new InterceptEvent<>("host.host.host", new StackTraceElement[] {
                 trustedPluginElement
-        }, Platform.OTHER, finder);
+        }, Platform.OTHER, finder, "");
         Assertions.assertFalse(blocker.hasBlockedPlugins(event), "Should not have a blocked plugin");
         Assertions.assertTrue(blocker.hasTrustedPlugins(event), "Should have a trusted plugin");
     }
@@ -47,7 +47,7 @@ public class PluginAwareBlockerTests {
         TestPluginFinder finder = new TestPluginFinder(blockedPluginElement, blockedPlugin);
         InterceptEvent<Plugin> event = new InterceptEvent<>("host.host.host", new StackTraceElement[] {
                 blockedPluginElement
-        }, Platform.OTHER, finder);
+        }, Platform.OTHER, finder, "");
         Assertions.assertTrue(blocker.hasBlockedPlugins(event), "Should have a blocked plugin");
         Assertions.assertFalse(blocker.hasTrustedPlugins(event), "Should not have a trusted plugin");
     }

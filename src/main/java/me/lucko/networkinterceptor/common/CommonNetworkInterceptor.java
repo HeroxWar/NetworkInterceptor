@@ -94,9 +94,11 @@ public class CommonNetworkInterceptor<T extends NetworkInterceptorPlugin<PLUGIN>
             return;
         }
 
+        /*
         if (this.ignoreAllowed && this.blocker instanceof AllowBlocker && !this.blocker.shouldBlock(event)) {
             return;
         }
+         */
 
         this.logger.logAttempt(event);
     }

@@ -35,7 +35,7 @@ import me.lucko.networkinterceptor.common.CommonNetworkInterceptor.IllegalConfig
 
 @Plugin(id = VelocityNetworkInterceptorInfo.ID, name = VelocityNetworkInterceptorInfo.NAME, //
         version = VelocityNetworkInterceptorInfo.VERSION, //
-        description = VelocityNetworkInterceptorInfo.DESCRIPTION, authors = { "drives_a_ford" }, dependencies = {
+        description = VelocityNetworkInterceptorInfo.DESCRIPTION, authors = { "drives_a_ford", "Luck", "SlimeDog", "xSavior_of_God" }, dependencies = {
                 @Dependency(id = "luckperms", optional = true) })
 public class VelocityNetworkInterceptor implements NetworkInterceptorPlugin<PluginContainer> {
     private static final String SAMPLE_ALLOW_CONFIG_FILE_NAME = "sample-allow-config.yml";

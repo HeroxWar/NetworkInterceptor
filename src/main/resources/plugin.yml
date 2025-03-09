@@ -3,7 +3,7 @@ version: ${project.version}
 api-version: 1.13
 main: ${project.groupId}.${project.artifactId}.NetworkInterceptor
 description: ${project.description}
-authors: [drives_a_ford, Luck, SlimeDog]
+authors: [drives_a_ford, Luck, SlimeDog, xSavior_of_God]
 load: STARTUP
 loadbefore: [LuckPerms]
 depend: []
